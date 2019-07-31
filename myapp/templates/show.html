@@ -20,17 +20,9 @@
  </form>
  <p><em>이렇게 힌트를 줬는데 모르면 진짜 너무해ㅠㅡㅠ</em></p>
  <img style="width:300px;height:300px;" src={% static 'img/hoshi2.jpg' %}/>
- <p id="check"></p>
- <script type="text/javascript">
-  function myFucntion() {
-   if(form.kingName[1].checked==true) document.getElementById("check").innerHTML="역시 저에 대해 잘 아시는군요. 찡긋";
-   else document.getElementById("check").innerHTML="헐..매우 실망입니다. 다시 공부해오세요.";
-  }
- </script>
-</body>
-</html>
  
-<h4><a href="{% url 'post' %}">무엇이든지 물어보세요!</a></h4>
+ 
+<h4><a href="{% url 'post' %}">정답은 여기에 적어주세요~&무엇이든지 물어보세요!</a></h4>
 {% for myapp in myapps.all %}
      <div class="container">
         <a href="{% url 'detail' myapp.id %}">
