@@ -1,36 +1,84 @@
-{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Bootstrap core CSS -->
+<link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
- <meta charset="UTF-8">
- <style> h1{background-color: rgb(131, 189, 155); text-align: center;}</style>
-</head>
-<body>
-    <br>
- <h1>간단한 아기사자에 대한 퀴즈~</h1>
- <br>
- <p> 세븐틴 중 가장 아기사자의 최애멤버는?</p>
- <form name="form">
-  <input type="radio" name="kingName" value="v1">민규<br>
-  <input type="radio" name="kingName" value="v2">호시<br>
-  <input type="radio" name="kingName" value="v3">정한<br>
-  <input type="radio" name="kingName" value="v4">승관<br>
-  <input type="button" name="선택" value="정답확인" onclick="myFucntion()">
- </form>
- <p><em>이렇게 힌트를 줬는데 모르면 진짜 너무해ㅠㅡㅠ</em></p>
- <img style="width:300px;height:300px;" src={% static 'img/hoshi2.jpg' %}/>
- 
- 
-<h4><a href="{% url 'post' %}">정답은 여기에 적어주세요~&무엇이든지 물어보세요!</a></h4>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+   
+  </head>
+  <body>
+    <div class="container">
+  <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
+        <a class="text-muted">HAPPY</a>
+      </div>
+      <div class="col-4 text-center">
+        <a class="blog-header-logo text-dark">JAE's BLOG</a>
+      </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="btn btn-sm btn-outline-secondary">HELLO</a>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Welcome to my Blog~</h1>
+      <p class="lead my-3">멋쟁이 사자처럼 7기</p>
+      <p class="lead mb-0"><class="text-white font-weight-bold">Continue reading...</a></p>
+    </div>
+  </div>
+
+</body>
+</html>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% if user.is_authenticated %}
+{{user.last_name}} {{user.first_name}}님 환영합니다. 
+<a class="btn btn-primary btn-lg"  href="{% url 'signout' %}">
+	<h6 class="display-6">로그아웃</h6>
+</a>
+{% else %} 
+<a class="btn btn-primary btn-lg"  href="{% url 'signup' %}">
+	<h6 class="display-6">회원가입</h6>
+</a>
+<a class="btn btn-primary btn-lg"  href="{% url 'signin' %}">
+	<h6 class="display-6">로그인</h6>
+</a>
+{%endif%}
+{% if user.is_authenticated %}
+<h4><a href="{% url 'post' %}"><글 작성하러 가기></a></h4>
 {% for myapp in myapps.all %}
      <div class="container">
         <a href="{% url 'detail' myapp.id %}">
-            TITLE: {{myapp.title}}
+            <ins>제목: <em>{{myapp.title}}</em></ins> <!--밑줄&기울이기-->
         </a>
-        <p>---{{myapp.body}}</p>
+        <p>내용: {{myapp.body}}</p>
 
         <small class="text-muted">{{myapp.pub_date}}</small>
     </div>
     
 {%endfor%}
+ 
+{% else %}
+<p><br>로그인을 하셔야 글작성이 가능한 게시판 입니다.</p>
+{% endif %}
